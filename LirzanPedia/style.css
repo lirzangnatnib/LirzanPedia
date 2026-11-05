@@ -1,0 +1,1261 @@
+/* ==========================================================================
+   LIRZANPEDIA - Y2K ACID BRUTALISM & CYBER RETRO-FUTURISTIC STYLESHEET
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Chakra+Petch:ital,wght@0,600;0,700;1,700&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@300;400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&family=VT323&display=swap');
+
+/* ==========================================================================
+   FONTSHARE WEBFONTS (ACTIVE TYPEFACES: Technor, Bespoke Stencil, Array, Styro, Comico)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Technor';
+  src: url('fonts/Technor-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BespokeStencil';
+  src: url('fonts/BespokeStencil-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArrayFont';
+  src: url('fonts/Array-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Styro';
+  src: url('fonts/Styro-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Comico';
+  src: url('fonts/Comico-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg-black: #050505;
+  --bg-charcoal: #0e0e12;
+  --bg-card: #121217;
+  --bg-card-hover: #181820;
+  --border-dim: #252530;
+  --border-bright: #3d3d4e;
+  --text-white: #ffffff;
+  --text-dim: #8e8ea0;
+  --accent-red: #ff0033;
+  --accent-red-glow: rgba(255, 0, 51, 0.6);
+  --accent-cyan: #00f0ff;
+  --accent-cyan-glow: rgba(0, 240, 255, 0.4);
+  --accent-green: #00ff88;
+  --accent-purple: #b026ff;
+  --chrome-silver: linear-gradient(180deg, #ffffff 0%, #e2e8f0 25%, #64748b 48%, #ffffff 52%, #475569 70%, #cbd5e1 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-black);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.5;
+  padding-top: 64px; /* Ensure content is never hidden behind fixed topbar */
+}
+
+/* Background Grids & Grain Overlay */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-dot-matrix {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.crt-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.35;
+}
+
+/* Typography Classes */
+.font-pixel {
+  font-family: 'VT323', monospace;
+  letter-spacing: 0.05em;
+}
+
+.font-silkscreen {
+  font-family: 'Silkscreen', monospace;
+}
+
+.font-cyber {
+  font-family: 'ArrayFont', monospace, sans-serif;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.font-chakra {
+  font-family: 'Chakra Petch', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-serif-distort {
+  font-family: 'Bodoni Moda', serif;
+}
+
+.font-decorative {
+  font-family: 'BespokeStencil', serif;
+}
+
+.font-grotesk {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* ==========================================================================
+   ACTIVE FONTSHARE UTILITY CLASSES (5 CORE FONTS)
+   ========================================================================== */
+.font-bespoke {
+  font-family: 'BespokeStencil', sans-serif;
+  font-weight: 700;
+}
+
+.font-technor {
+  font-family: 'Technor', sans-serif;
+  font-weight: 900;
+}
+
+.font-styro {
+  font-family: 'Styro', sans-serif;
+  font-weight: 900;
+}
+
+.font-array {
+  font-family: 'ArrayFont', monospace, sans-serif;
+  font-weight: 700;
+}
+
+.font-comico {
+  font-family: 'Comico', sans-serif;
+  font-weight: normal;
+}
+
+/* ==========================================================================
+   HERO TITLE OPTICAL ALIGNMENT & SHATTER/GLITCH EFFECT
+   ========================================================================== */
+.hero-title-segment {
+  display: inline-block;
+  line-height: 0.92;
+  vertical-align: baseline;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.12s ease-out;
+}
+
+/* Chromatic slice shatter ONLY for SOLUTION (Requested by user) */
+.hero-title-solution::before,
+.hero-title-solution::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.hero-title-solution:hover::before {
+  opacity: 0.95;
+  color: #ff0033;
+  -webkit-text-fill-color: #ff0033;
+  animation: glitchSliceTop 0.35s steps(2, end) infinite;
+  z-index: 2;
+  filter: drop-shadow(-3px 0 #ff0033);
+}
+
+.hero-title-solution:hover::after {
+  opacity: 0.95;
+  color: #00f0ff;
+  -webkit-text-fill-color: #00f0ff;
+  animation: glitchSliceBottom 0.35s steps(2, end) infinite reverse;
+  z-index: 1;
+  filter: drop-shadow(3px 0 #00f0ff);
+}
+
+.hero-title-solution:hover {
+  animation: jitterShatter 0.2s infinite;
+  text-shadow: -2px 0 rgba(255, 0, 51, 0.8), 2px 0 rgba(0, 240, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes jitterShatter {
+  0% { transform: translate(0, 0) skew(0deg); }
+  20% { transform: translate(-3px, 1.5px) skew(-3deg); }
+  40% { transform: translate(3px, -1.5px) skew(3deg); }
+  60% { transform: translate(-1.5px, -2px) skew(-1.5deg); }
+  80% { transform: translate(2px, 2px) skew(1.5deg); }
+  100% { transform: translate(0, 0) skew(0deg); }
+}
+
+@keyframes glitchSliceTop {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+    transform: translate(-5px, -1px);
+  }
+  50% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 60%, 0 60%);
+    transform: translate(5px, 1px);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-3px, 0);
+  }
+}
+
+@keyframes glitchSliceBottom {
+  0% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    transform: translate(5px, 1px);
+  }
+  50% {
+    clip-path: polygon(0 40%, 100% 40%, 100% 85%, 0 85%);
+    transform: translate(-4px, -1px);
+  }
+  100% {
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(3px, 0);
+  }
+}
+
+/* Dynamic Debris Particle for Hover Shatter */
+.shatter-debris {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 1px;
+  animation: debrisScatter 0.6s cubic-bezier(0.1, 1, 0.1, 1) forwards;
+}
+
+@keyframes debrisScatter {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.2) rotate(var(--rot));
+  }
+}
+
+/* ==========================================================================
+   ROW 1: LIRZAN (Luxury Chrome Levitation & Liquid Metallic Light Wave)
+   ========================================================================== */
+.hero-title-lirzan {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-title-lirzan::before,
+.hero-title-lirzan::after {
+  display: none !important;
+}
+
+@keyframes lirzanChromeWave {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+    filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.85)) drop-shadow(-3px 0 rgba(255, 0, 51, 0.6));
+  }
+  100% {
+    transform: translateY(-2px) scale(1.015);
+    filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.6)) drop-shadow(3px 0 rgba(255, 0, 51, 0.5));
+  }
+}
+
+.hero-title-lirzan:hover {
+  animation: lirzanChromeWave 1s ease-in-out infinite alternate;
+}
+
+.hero-title-lirzan:hover .hero-title-lir {
+  filter: drop-shadow(-2px 0 #00f0ff) drop-shadow(2px 0 rgba(255, 255, 255, 0.9));
+  transform: scale(1.01);
+}
+
+.hero-title-lirzan:hover .hero-title-zan {
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 28px rgba(0, 240, 255, 0.8);
+  filter: drop-shadow(3px 0 #00f0ff);
+  transform: scale(1.01);
+}
+
+/* ==========================================================================
+   ROW 2: PEDIA [!] (Y2K Acid Prism Hologram & Chromatic Laser Distortion)
+   ========================================================================== */
+@keyframes pediaAcidPrism {
+  0% {
+    transform: translateY(0) skewX(0deg);
+    filter: drop-shadow(0 0 10px rgba(255, 0, 51, 0.6)) drop-shadow(0 0 20px rgba(176, 38, 255, 0.5));
+  }
+  20% {
+    transform: translateY(-2px) skewX(-3.5deg) scale(1.02);
+    filter: drop-shadow(-3px 0 #ff0033) drop-shadow(3px 0 #00f0ff) drop-shadow(0 0 25px rgba(255, 0, 51, 0.8));
+  }
+  40% {
+    transform: translateY(-4px) skewX(3deg) scale(1.03);
+    filter: drop-shadow(3px 0 #00ff88) drop-shadow(-3px 0 #b026ff) drop-shadow(0 0 35px rgba(0, 240, 255, 0.9));
+  }
+  60% {
+    transform: translateY(-2px) skewX(-2deg) scale(1.02);
+    filter: drop-shadow(-3px 0 #00f0ff) drop-shadow(3px 0 #ff0033) drop-shadow(0 0 30px rgba(176, 38, 255, 0.8));
+  }
+  80% {
+    transform: translateY(-3px) skewX(2deg) scale(1.025);
+    filter: drop-shadow(2px 0 #ff0033) drop-shadow(-2px 0 #00ff88);
+  }
+  100% {
+    transform: translateY(0) skewX(0deg);
+    filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.7));
+  }
+}
+
+@keyframes pediaTagLaser {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 8px #ff0033);
+  }
+  50% {
+    transform: scale(1.22) rotate(5deg);
+    filter: drop-shadow(0 0 20px #ff0033) drop-shadow(0 0 35px #ff0033);
+  }
+}
+
+.hero-title-pedia {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.hero-title-pedia:hover {
+  animation: pediaAcidPrism 0.65s ease-in-out infinite;
+  letter-spacing: 0.02em;
+}
+
+.hero-title-tag {
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.hero-title-tag:hover,
+.hero-title-pedia:hover ~ .hero-title-tag {
+  animation: pediaTagLaser 0.3s ease-in-out infinite alternate;
+}
+
+/* ==========================================================================
+   ROW 3: DIGITAL [EYE] (Matrix High-Speed Data Decode & Cyber Eye Flare)
+   ========================================================================== */
+@keyframes matrixStrobe {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 14px #00f0ff, 0 0 28px #00f0ff;
+    transform: skew(0deg);
+  }
+  25% {
+    opacity: 0.85;
+    text-shadow: -3px 0 #ff0033, 3px 0 #00f0ff, 0 0 40px #00f0ff;
+    transform: skew(-2deg);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 2px 0 #00ff88, -2px 0 #00f0ff, 0 0 25px #00ff88;
+    transform: skew(1.5deg);
+  }
+  75% {
+    opacity: 0.9;
+    text-shadow: -2px 0 #ff0033, 0 0 45px #00f0ff;
+    transform: skew(-1deg);
+  }
+}
+
+.hero-title-digital {
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.hero-title-digital:hover {
+  animation: matrixStrobe 0.25s steps(2, end) infinite;
+  color: #00f0ff !important;
+  letter-spacing: 0.08em;
+}
+
+.eye-cutout-box {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-title-digital:hover ~ .eye-cutout-box,
+.eye-cutout-box:hover,
+.eye-cutout-box.eye-laser-active {
+  transform: scale(1.22) rotate(4deg);
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.85), 0 0 16px rgba(255, 0, 51, 0.6);
+  border-color: #00f0ff;
+}
+
+/* LIR (Bespoke Stencil): Optical adjustment 0.90em, clean spacing without colliding with ZAN */
+.hero-title-lir {
+  font-family: 'BespokeStencil', sans-serif;
+  font-weight: 700;
+  font-size: 0.90em;
+  letter-spacing: -0.01em;
+  display: inline-block;
+  margin-right: 0;
+}
+
+/* ZAN (Technor Black): Optical adjustment 1.02em, aligned with LIR as one compound wordmark */
+.hero-title-zan {
+  font-family: 'Technor', sans-serif;
+  font-weight: 900;
+  font-size: 1.02em;
+  letter-spacing: 0.01em;
+  display: inline-block;
+  margin-left: 0.12em; /* Jarak pas & natural, tidak tabrakan atau menumpuk */
+}
+
+/* PEDIA (Styro): Chunky acid Y2K display */
+.hero-title-pedia {
+  font-family: 'Styro', sans-serif;
+  font-weight: 900;
+  font-size: 0.93em;
+  letter-spacing: 0.01em;
+}
+
+/* TAG [!] (Comico): Comic acid tag */
+.hero-title-tag {
+  font-family: 'Comico', sans-serif;
+  font-size: 0.55em;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+/* DIGITAL (Array): Futuristic Cyber Monospace / Techno Display */
+.hero-title-digital {
+  font-family: 'ArrayFont', monospace, sans-serif;
+  font-weight: 700;
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+}
+
+/* SOLUTION (Silkscreen): Retro Pixel 8-Bit Arcade Font (Foto 3) */
+.hero-title-solution {
+  font-family: 'Silkscreen', monospace;
+  font-weight: 700;
+  font-size: 0.95em;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* Chrome / Metallic Text */
+.text-chrome {
+  background: var(--chrome-silver);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+.text-chrome-iridescent {
+  background: linear-gradient(
+    135deg, 
+    #ffffff 0%, 
+    #a6e3e9 25%, 
+    #e84545 45%, 
+    #ffffff 55%, 
+    #71c9ce 75%, 
+    #ffc7c7 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Y2K Starburst & Glow */
+.starburst-red {
+  color: var(--accent-red);
+  filter: drop-shadow(0 0 10px var(--accent-red-glow));
+}
+
+.starburst-cyan {
+  color: var(--accent-cyan);
+  filter: drop-shadow(0 0 10px var(--accent-cyan-glow));
+}
+
+/* Holographic 3D Globe */
+.holo-sphere-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  perspective: 600px;
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.holo-sphere {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%, 
+    #ffffff 0%, 
+    #9bf8f8 20%, 
+    #c441ff 55%, 
+    #00ffcc 80%, 
+    #110033 100%
+  );
+  box-shadow: 
+    0 0 25px rgba(0, 240, 255, 0.4),
+    inset -10px -10px 30px rgba(0,0,0,0.8),
+    inset 10px 10px 20px rgba(255,255,255,0.7);
+  position: relative;
+  overflow: hidden;
+  animation: sphere-pulse 6s ease-in-out infinite alternate;
+}
+
+.holo-wireframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-image: 
+    radial-gradient(transparent 60%, rgba(0, 240, 255, 0.3) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(255, 255, 255, 0.3) 12px, rgba(255, 255, 255, 0.3) 13px),
+    repeating-linear-gradient(90deg, transparent, transparent 12px, rgba(255, 255, 255, 0.3) 12px, rgba(255, 255, 255, 0.3) 13px);
+  mix-blend-mode: overlay;
+  animation: rotate-wireframe 12s linear infinite;
+}
+
+@keyframes rotate-wireframe {
+  0% { transform: rotate(0deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1.05); }
+}
+
+@keyframes sphere-pulse {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.05) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Oval Badge with Orbiting Star (SVG Starburst) */
+.orbit-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  border-radius: 9999px;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  background: rgba(20, 20, 26, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.orbit-badge::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0033'%3E%3Cpath d='M12 0 C12 6.627 6.627 12 0 12 C6.627 12 12 17.373 12 24 C12 17.373 17.373 12 24 12 C17.373 12 12 6.627 12 0 Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 6px var(--accent-red-glow));
+  animation: badge-orbit 5s linear infinite;
+}
+
+@keyframes badge-orbit {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-30px, -5px) rotate(90deg); }
+  50% { transform: translate(-80px, 15px) rotate(180deg); }
+  75% { transform: translate(-30px, 35px) rotate(270deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* Marquee / Infinite Ticker */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  user-select: none;
+}
+
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  animation: scroll-marquee 24s linear infinite;
+}
+
+.marquee-content-reverse {
+  display: flex;
+  flex-shrink: 0;
+  animation: scroll-marquee-reverse 24s linear infinite;
+}
+
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-container:hover .marquee-content,
+.marquee-container:hover .marquee-content-reverse {
+  animation-play-state: paused;
+}
+
+/* Brutalist Crosshair Corners */
+.brutalist-box {
+  position: relative;
+  border: 1px solid var(--border-dim);
+  background: var(--bg-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brutalist-box:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 8px 24px -8px rgba(0, 240, 255, 0.15);
+}
+
+.crosshair-tl::before,
+.crosshair-tr::after,
+.crosshair-bl::before,
+.crosshair-br::after {
+  content: "+";
+  position: absolute;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.crosshair-tl::before { top: -8px; left: -6px; }
+.crosshair-tr::after { top: -8px; right: -6px; }
+.crosshair-bl::before { bottom: -8px; left: -6px; }
+.crosshair-br::after { bottom: -8px; right: -6px; }
+
+/* Glitch Effect on Hover */
+.glitch-hover {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.glitch-hover:hover {
+  animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+@keyframes glitch-anim {
+  0% {
+    transform: translate(0);
+    text-shadow: -2px 0 var(--accent-red), 2px 0 var(--accent-cyan);
+  }
+  25% {
+    transform: translate(-2px, 1px);
+    text-shadow: 2px 0 var(--accent-red), -2px 0 var(--accent-cyan);
+  }
+  50% {
+    transform: translate(1px, -1px);
+    text-shadow: -1px 0 var(--accent-cyan), 1px 0 var(--accent-red);
+  }
+  75% {
+    transform: translate(-1px, -1px);
+    text-shadow: 2px 0 var(--accent-cyan), -2px 0 var(--accent-red);
+  }
+  100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   HIDE DEFAULT BROWSER SCROLLBAR (REPLACED BY FIGCRAFT RULER RAIL)
+   ========================================================================== */
+html, body {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE & Edge */
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* Blinking terminal cursor */
+.cursor-blink {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Eye cut-out styling */
+.eye-cutout-box {
+  width: clamp(52px, 7vw, 90px);
+  height: clamp(28px, 3.8vw, 48px);
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+}
+
+.eye-cutout-box img,
+.eye-cutout-box svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(140%);
+}
+
+/* Button & Terminal Styles */
+.btn-terminal {
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid var(--border-bright);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-terminal:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.btn-terminal-red {
+  background: var(--accent-red);
+  color: #ffffff;
+  border: 1px solid var(--accent-red);
+  font-family: 'Silkscreen', monospace;
+  font-size: 0.85rem;
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-terminal-red:hover {
+  background: #ffffff;
+  color: #ff0033;
+  box-shadow: 0 0 20px var(--accent-red-glow);
+  transform: translateY(-2px);
+}
+
+.btn-terminal-cyan {
+  background: #00f0ff;
+  color: #000000;
+  border: 1px solid #00f0ff;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-terminal-cyan:hover {
+  background: #ffffff;
+  box-shadow: 0 0 16px var(--accent-cyan-glow);
+}
+
+/* Terminal Input */
+.terminal-input {
+  background: #09090d;
+  border: 1px solid var(--border-dim);
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.terminal-input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+/* Pill status tag */
+.pill-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-family: 'Space Mono', monospace;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  color: var(--accent-green);
+}
+
+.pill-red {
+  background: rgba(255, 0, 51, 0.1);
+  border: 1px solid rgba(255, 0, 51, 0.3);
+  color: #ff4d6d;
+}
+
+.pill-cyan {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: var(--accent-cyan);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .hero-giant-text {
+    font-size: 2.75rem !important;
+    line-height: 1.1 !important;
+  }
+  .hero-sub-text {
+    font-size: 1.75rem !important;
+  }
+  .holo-sphere-container {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* ==========================================================================
+   ANIMATIONS: 3D, VECTOR & ASCII CYBER EFFECTS
+   ========================================================================== */
+
+/* 1. Live 3D ASCII Canvas */
+.ascii-terminal-screen {
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 8px;
+  line-height: 8px;
+  letter-spacing: 0px;
+  color: #00ff88;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+  background: #000000;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.2);
+  user-select: none;
+  white-space: pre;
+  overflow: hidden;
+}
+
+/* 2. Vector Animations */
+@keyframes spinClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); opacity: 0.8; }
+  50% { opacity: 0.3; }
+  100% { transform: rotate(360deg); opacity: 0.8; }
+}
+
+@keyframes pulseGlow {
+  0% { filter: drop-shadow(0 0 4px var(--accent-red-glow)); transform: scale(1); }
+  100% { filter: drop-shadow(0 0 16px var(--accent-red)); transform: scale(1.1); }
+}
+
+.anim-spin-slow {
+  animation: spinClockwise 18s linear infinite;
+}
+
+.anim-spin-fast {
+  animation: spinClockwise 6s linear infinite;
+}
+
+.anim-spin-reverse {
+  animation: spinCounterClockwise 14s linear infinite;
+}
+
+.anim-radar {
+  transform-origin: center;
+  animation: radarSweep 4s linear infinite;
+}
+
+.anim-pulse-star {
+  animation: pulseGlow 2.5s ease-in-out infinite alternate;
+}
+
+/* 3. Pure CSS 3D Rotating Isometric Wireframe Cube */
+.scene-3d {
+  width: 70px;
+  height: 70px;
+  perspective: 600px;
+}
+
+.cube-3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate3dCube 10s linear infinite;
+}
+
+.cube-face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgba(0, 240, 255, 0.7);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px;
+  color: #00f0ff;
+}
+
+.cube-front  { transform: rotateY(0deg) translateZ(35px); }
+.cube-back   { transform: rotateY(180deg) translateZ(35px); }
+.cube-right  { transform: rotateY(90deg) translateZ(35px); }
+.cube-left   { transform: rotateY(-90deg) translateZ(35px); }
+.cube-top    { transform: rotateX(90deg) translateZ(35px); }
+.cube-bottom { transform: rotateX(-90deg) translateZ(35px); }
+
+@keyframes rotate3dCube {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* Interactive 3D Perspective Card */
+.interactive-3d-tilt {
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   ADVANCED CYBER ANIMATIONS: FLOATING, LASER SCANNER & GLOW PULSE
+   ========================================================================== */
+
+/* 1. Organic Float Animations for Stars & Holograms */
+@keyframes floatSlow {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes floatReverse {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.anim-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.anim-float-reverse {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+
+/* 2. Cyber Laser Scanline Beam across Checkout Deck */
+@keyframes laserSweep {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.laser-scanner-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #00f0ff 25%, #ffffff 50%, #00f0ff 75%, transparent 100%);
+  box-shadow: 0 0 12px #00f0ff, 0 0 20px rgba(0, 240, 255, 0.6);
+  pointer-events: none;
+  z-index: 20;
+  animation: laserSweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* 3. Glowing Card Border Breathing */
+@keyframes cyberBorderGlow {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0px rgba(0, 240, 255, 0);
+  }
+  50% {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+  }
+}
+
+.cyber-card-glow {
+  animation: cyberBorderGlow 4s ease-in-out infinite;
+}
+
+/* 4. Active Press and Tactile Button Micro-interactions */
+.btn-terminal, .btn-terminal-red, .btn-terminal-cyan {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-terminal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 240, 255, 0.25);
+}
+
+.btn-terminal:active, .btn-terminal-red:active, .btn-terminal-cyan:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-terminal-red:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 0, 51, 0.4);
+}
+
+/* 5. Checkout Tab Active Styling */
+.checkout-tab-btn {
+  transition: all 0.15s ease;
+}
+.checkout-tab-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   TOPBAR NAVIGATION & DROPDOWN STYLING
+   ========================================================================== */
+.topbar-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: rgba(5, 5, 5, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.topbar-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #a1a1aa;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.topbar-link:hover {
+  color: #ffffff;
+}
+
+.topbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 290px;
+  background: rgba(10, 10, 14, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 24px rgba(0, 240, 255, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 110;
+  padding: 6px;
+}
+
+.group:hover .topbar-dropdown,
+.group:focus-within .topbar-dropdown,
+.topbar-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.topbar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: #d4d4d8;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.825rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.topbar-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #00f0ff;
+  transform: translateX(3px);
+}
+
+.btn-pesan-sekarang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 22px;
+  border-radius: 9999px;
+  background-color: #0d0e15;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-pesan-sekarang:hover {
+  background-color: #161824;
+  border-color: #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+
+
+
+
+
+/* ==========================================================================
+   FIGCRAFT STYLE RIGHT-SIDE HUD RULER & SCROLLBAR (TEXT-FREE MINIMAL)
+   ========================================================================== */
+#figcraft-ruler-dock {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 920;
+  pointer-events: none;
+}
+
+.figcraft-ruler-track {
+  width: 52px;
+  height: 100vh;
+  border-left: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(to left, rgba(5, 5, 8, 0.94) 50%, rgba(5, 5, 8, 0.6) 85%, transparent 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: ns-resize;
+  position: relative;
+  pointer-events: auto;
+  user-select: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.figcraft-ruler-track:hover,
+.figcraft-ruler-track.is-dragging {
+  border-left-color: rgba(0, 240, 255, 0.45);
+  background: linear-gradient(to left, rgba(5, 5, 8, 0.98) 60%, rgba(5, 5, 8, 0.75) 100%);
+}
+
+.figcraft-ruler-needle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  transition: top 0.04s ease-out;
+  z-index: 10;
+}
