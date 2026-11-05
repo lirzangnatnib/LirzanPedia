@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LirzanPedia - Digital Solution</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'y2k-black': '#050505',
+            'y2k-charcoal': '#0d0d12',
+            'y2k-red': '#ff0033',
+            'y2k-cyan': '#00f0ff',
+            'y2k-green': '#00ff88',
+            'y2k-purple': '#b026ff'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-y2k-black text-white selection:bg-y2k-red selection:text-white relative">
+
+  <!-- CRT Scanlines Overlay -->
+  <div class="crt-scanlines"></div>
+
+  <!-- Reusable SVG Definition Assets -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- 4-Point Starburst (Y2K Acid Star) -->
+    <symbol id="icon-starburst" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M12 0 C12 6.627 6.627 12 0 12 C6.627 12 12 17.373 12 24 C12 17.373 17.373 12 24 12 C17.373 12 12 6.627 12 0 Z" />
+    </symbol>
+
+    <!-- Lightning Bolt (Instant Order) -->
+    <symbol id="icon-lightning" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </symbol>
+
+    <!-- Checkmark (Verified feature) -->
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        d="M5 13l4 4L19 7" />
+    </symbol>
+
+    <!-- Terminal Arrow / Pointer -->
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    </symbol>
+
+    <!-- Close X -->
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12" />
+    </symbol>
+
+    <!-- Settings Gear -->
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </symbol>
+
+    <!-- Sound Speaker -->
+    <symbol id="icon-sound" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+    </symbol>
+
+    <!-- Smartphone / App Device (AM Premium) -->
+    <symbol id="icon-phone" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M12 18h.01M8 2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2z" />
+    </symbol>
+
+    <!-- Design Palette (Jasa Desain) -->
+    <symbol id="icon-palette" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M7 21a4 4 0 01-4-4 11 11 0 0120-4.5 9 9 0 01-9 8.5h-1a2 2 0 00-2 2v1a2 2 0 01-2 2h-2zM9 8h.01M15 8h.01M12 5h.01M8 12h.01" />
+    </symbol>
+
+    <!-- Robot / Bot Engine (Script Bot) -->
+    <symbol id="icon-robot" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M12 2v2m-5 0h10a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2zm-3 7h2m12 0h2m-10 1v2m4-2v2m-6 5h8" />
+    </symbol>
+
+    <!-- Receipt / Invoice -->
+    <symbol id="icon-receipt" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </symbol>
+
+    <!-- Copy Clipboard -->
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3" />
+    </symbol>
+
+    <!-- Tip / Light Bulb -->
+    <symbol id="icon-bulb" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    </symbol>
+  </svg>
+
+  <!-- MAIN TOPBAR NAVIGATION (Always Fixed on Top, Clean SVG Icons, No Emojis) -->
+  <header class="topbar-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between">
+
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div
+          class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 via-zinc-800 to-red-500 p-[1px] flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <div class="w-full h-full bg-black rounded-full flex items-center justify-center">
+            <span
+              class="font-silkscreen text-[11px] font-bold text-white group-hover:text-cyan-400 transition">LP</span>
+          </div>
+        </div>
+        <div class="flex items-baseline font-silkscreen text-base tracking-wider font-bold">
+          <span class="text-white">LIRZAN</span>
+          <span class="text-cyan-400">PEDIA</span>
+        </div>
+      </a>
+
+      <!-- Center Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7">
+        <!-- Produk Dropdown Menu -->
+        <div class="relative group">
+          <button class="topbar-link flex items-center gap-1.5 py-2 cursor-pointer outline-none group-hover:text-white">
+            <span>Produk</span>
+            <svg
+              class="w-3.5 h-3.5 text-zinc-400 group-hover:text-cyan-400 group-hover:rotate-180 transition duration-200"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Box (Clean SVG Icons Only) -->
+          <div class="topbar-dropdown">
+            <a href="#alight-motion-card" class="topbar-dropdown-item group/item">
+              <div
+                class="w-7 h-7 rounded bg-red-950/80 border border-red-800 flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5 text-red-400">
+                  <use href="#icon-phone" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white group-hover/item:text-cyan-300">Alight Motion Premium</div>
+                <div class="text-[10px] text-zinc-400 font-mono">1 Tahun • Garansi 1 Bulan</div>
+              </div>
+            </a>
+            <a href="#logo-design-card" class="topbar-dropdown-item group/item">
+              <div
+                class="w-7 h-7 rounded bg-purple-950/80 border border-purple-800 flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5 text-purple-400">
+                  <use href="#icon-palette" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white group-hover/item:text-cyan-300">Jasa Desain Grafis</div>
+                <div class="text-[10px] text-zinc-400 font-mono">Logo, Poster, Banner, Kit</div>
+              </div>
+            </a>
+            <a href="#bot-script-card" class="topbar-dropdown-item group/item">
+              <div
+                class="w-7 h-7 rounded bg-emerald-950/80 border border-emerald-800 flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5 text-emerald-400">
+                  <use href="#icon-robot" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white group-hover/item:text-cyan-300">Script Bot & Tambah Fitur</div>
+                <div class="text-[10px] text-zinc-400 font-mono">WA, Tele, Discord / Script Sendiri</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <a href="#katalog-section" class="topbar-link">Katalog</a>
+        <a href="#faq-section" class="topbar-link">FAQ</a>
+        <a href="#kontak-section" class="topbar-link">Kontak</a>
+      </nav>
+
+      <!-- Right: Pesan Sekarang Button & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a href="checkout.html" target="_blank" class="btn-pesan-sekarang">
+          <span>Pesan Sekarang</span>
+          <svg class="w-3.5 h-3.5 text-cyan-400">
+            <use href="#icon-arrow-right" />
+          </svg>
+        </a>
+
+        <!-- Hamburger Button (Mobile) -->
+        <button id="mobile-menu-toggle"
+          class="md:hidden p-2 text-zinc-400 hover:text-white border border-zinc-800 rounded bg-zinc-950 cursor-pointer"
+          aria-label="Toggle Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu Drawer (Hidden by default, Pure SVG Icons) -->
+    <div id="mobile-menu-drawer"
+      class="md:hidden hidden border-t border-zinc-800 bg-zinc-950 px-4 py-4 space-y-3 font-mono text-sm">
+      <div>
+        <button id="mobile-product-toggle"
+          class="w-full flex items-center justify-between text-zinc-300 py-2 border-b border-zinc-900 cursor-pointer">
+          <span class="font-bold text-white">Produk Kami</span>
+          <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div id="mobile-product-submenu" class="hidden pl-4 py-2 space-y-2 text-xs text-zinc-400">
+          <a href="#alight-motion-card" class="flex items-center gap-2 py-1 hover:text-cyan-400">
+            <svg class="w-3.5 h-3.5 text-red-400">
+              <use href="#icon-phone" />
+            </svg>
+            <span>Alight Motion Premium (1 Tahun)</span>
+          </a>
+          <a href="#logo-design-card" class="flex items-center gap-2 py-1 hover:text-cyan-400">
+            <svg class="w-3.5 h-3.5 text-purple-400">
+              <use href="#icon-palette" />
+            </svg>
+            <span>Jasa Desain Grafis (Logo, Poster, Banner)</span>
+          </a>
+          <a href="#bot-script-card" class="flex items-center gap-2 py-1 hover:text-cyan-400">
+            <svg class="w-3.5 h-3.5 text-emerald-400">
+              <use href="#icon-robot" />
+            </svg>
+            <span>Script Bot Custom & Tambah Fitur</span>
+          </a>
+        </div>
+      </div>
+      <a href="#katalog-section" class="block text-zinc-300 py-1.5 hover:text-white">Katalog Produk</a>
+      <a href="#faq-section" class="block text-zinc-300 py-1.5 hover:text-white">FAQ</a>
+      <a href="#kontak-section" class="block text-zinc-300 py-1.5 hover:text-white">Kontak</a>
+      <div class="pt-2">
+        <a href="checkout.html" target="_blank"
+          class="w-full btn-terminal-red text-center py-2.5 text-xs flex items-center justify-center gap-2">
+          <span>PESAN SEKARANG</span>
+          <svg class="w-3.5 h-3.5">
+            <use href="#icon-arrow-right" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FIGCRAFT STYLE RIGHT-SIDE HUD RULER & SCROLLBAR (Text-Free Minimal Architectural Scale) -->
+  <aside id="figcraft-ruler-dock" class="fixed right-0 top-0 bottom-0 z-40 hidden md:flex select-none"
+    aria-label="Page Scroll Ruler">
+    <!-- The Vertical Ruler Strip (FigCraft Style Architectural Scale) -->
+    <div id="figcraft-ruler-track"
+      class="figcraft-ruler-track relative h-full w-[48px] sm:w-[54px] border-l border-zinc-800/80 bg-black/70 backdrop-blur-md overflow-hidden pointer-events-auto cursor-ns-resize"
+      title="Scroll / Drag untuk navigasi halaman">
+
+      <!-- Ruler Ticks Container (0 - 100) -->
+      <div
+        class="absolute inset-0 flex flex-col justify-between py-6 px-1.5 pointer-events-none select-none text-[8px] font-mono text-zinc-600">
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>0</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>10</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>20</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>30</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>40</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>50</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>60</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>70</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>80</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>90</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+        <div class="ruler-submark flex justify-end"><span class="w-1.5 h-[1px] bg-zinc-800"></span></div>
+        <div class="ruler-mark flex items-center justify-end gap-1.5"><span>100</span><span
+            class="w-3.5 h-[1px] bg-zinc-600"></span></div>
+      </div>
+
+      <!-- Live Cursor Needle & Percentage Tag -->
+      <div id="figcraft-ruler-needle" class="figcraft-ruler-needle absolute left-0 right-0 pointer-events-none"
+        style="top: 0px;">
+        <div class="w-full h-[1.5px] bg-cyan-400 shadow-[0_0_8px_#00f0ff]"></div>
+        <div
+          class="absolute right-1 -top-3.5 bg-black/90 border border-cyan-500/80 px-1 py-0.5 rounded text-[8px] font-mono text-cyan-300 font-bold shadow-md">
+          <span id="figcraft-ruler-pct">000%</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- MAIN HERO SECTION (LirzanPedia Digital Solution) -->
+  <section class="relative pt-16 pb-24 px-4 overflow-hidden bg-grid-pattern">
+
+    <!-- Asymmetrical Red Starbursts (Pure SVG vectors with Organic Cyber Float) -->
+    <div class="absolute top-28 left-[8%] starburst-red select-none anim-float-slow">
+      <svg class="w-8 h-8 fill-current text-y2k-red">
+        <use href="#icon-starburst" />
+      </svg>
+    </div>
+    <div class="absolute top-36 right-[10%] starburst-red select-none anim-float-reverse">
+      <svg class="w-10 h-10 fill-current text-y2k-red">
+        <use href="#icon-starburst" />
+      </svg>
+    </div>
+    <div class="absolute bottom-16 left-[15%] starburst-cyan select-none anim-float-slow">
+      <svg class="w-6 h-6 fill-current text-y2k-cyan">
+        <use href="#icon-starburst" />
+      </svg>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10 flex flex-col items-center text-center">
+
+      <!-- Oval Orbit Badge -->
+      <div class="mb-8">
+        <div class="orbit-badge">
+          <span class="font-mono text-xs uppercase tracking-widest text-zinc-300">
+            WELCOME <strong class="text-white">TO</strong>
+          </span>
+        </div>
+      </div>
+
+      <!-- Giant Mixed Typography Header: LIRZANPEDIA DIGITAL SOLUTION -->
+      <div class="relative w-full max-w-5xl mb-8">
+
+        <!-- Floating Holographic 3D Sphere -->
+        <div class="absolute -top-10 right-4 md:right-10 z-20 holo-sphere-container">
+          <div class="holo-sphere">
+            <div class="holo-wireframe"></div>
+          </div>
+        </div>
+
+        <h1
+          class="hero-giant-text font-bold tracking-tight leading-none uppercase select-none w-full max-w-5xl mx-auto flex flex-col items-center">
+
+          <!-- Row 1: LIRZAN (Satu kesatuan kata, beranimasi bersamaan saat di-hover) -->
+          <div
+            class="hero-title-segment hero-title-lirzan flex items-baseline justify-center mb-2 sm:mb-3 text-5xl sm:text-7xl md:text-8xl lg:text-9xl cursor-pointer">
+            <span class="hero-title-lir font-bespoke text-chrome">LIR</span>
+            <span class="hero-title-zan font-technor text-white ml-2 sm:ml-2.5">ZAN</span>
+          </div>
+
+          <!-- Row 2: PEDIA [!] (Styro Black Iridescent + Acid Tag) -->
+          <div
+            class="flex items-center justify-center tracking-normal mb-2 sm:mb-3 text-5xl sm:text-7xl md:text-8xl lg:text-9xl">
+            <span class="hero-title-segment hero-title-pedia font-styro text-chrome-iridescent"
+              data-text="PEDIA">PEDIA</span>
+            <span class="hero-title-segment hero-title-tag font-comico text-y2k-red font-bold select-none ml-2 sm:ml-4"
+              data-text="[!]">[!]</span>
+          </div>
+
+          <!-- Row 3: DIGITAL [EYE] (Font Array Bold Cyan + Cyber Eye Cutout) -->
+          <div
+            class="flex items-center justify-center gap-3 sm:gap-5 mb-2 sm:mb-3 text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
+            <span class="hero-title-segment hero-title-digital font-array text-cyan-400 tracking-wider"
+              data-text="DIGITAL">DIGITAL</span>
+
+            <!-- Realistic Eye Cut-out Box (Motif Cyberpunk) -->
+            <div class="eye-cutout-box rounded transform -rotate-1 hover:rotate-0 transition border-zinc-700 shrink-0">
+              <svg viewBox="0 0 100 50" class="w-full h-full bg-zinc-900" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="50" cy="25" rx="42" ry="20" fill="#18181b" stroke="#71717a" stroke-width="1.5" />
+                <circle cx="50" cy="25" r="14" fill="#3f3f46" stroke="#e4e4e7" stroke-width="1.5" />
+                <circle cx="50" cy="25" r="7" fill="#000000" />
+                <circle cx="54" cy="22" r="3" fill="#ffffff" />
+                <path d="M15 25 Q50 5 85 25" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.7" />
+                <path d="M15 25 Q50 45 85 25" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 4: SOLUTION (Pixel Silkscreen with Chrome Effect like in Photo 3) -->
+          <div class="flex items-center justify-center text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
+            <span
+              class="hero-title-segment hero-title-solution font-silkscreen text-chrome font-bold tracking-wider whitespace-nowrap"
+              data-text="SOLUTION">SOLUTION</span>
+          </div>
+        </h1>
+      </div>
+
+      <!-- Hero Subtitle & Positioning -->
+      <div class="max-w-3xl mb-10 px-2">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-900/90 border border-zinc-700 text-xs font-mono text-zinc-300 rounded mb-4">
+          <span class="w-2 h-2 rounded-full bg-red-500 inline-block animate-pulse"></span>
+          <span>CREATIVE ASSETS & BOT AUTOMATION LAB</span>
+        </div>
+        <p class="font-grotesk text-zinc-400 text-base sm:text-lg md:text-xl leading-relaxed">
+          Pusat layanan digital serba ada: <strong class="text-white">Akun Alight Motion Premium</strong> (Garansi 1
+          Bulan), <strong class="text-white">Jasa Desain Grafis</strong> (Logo, Poster, Banner & Social Media), serta
+          <strong class="text-white">Jasa Script Bot & Tambah Fitur</strong> (WhatsApp, Telegram, Discord).
+        </p>
+      </div>
+
+      <!-- Action Buttons with SVG Icons -->
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#katalog-section" class="btn-terminal-red">
+          <svg class="w-4 h-4 fill-current">
+            <use href="#icon-starburst" />
+          </svg>
+          <span>LIHAT KATALOG PRODUK</span>
+        </a>
+        <a href="checkout.html" target="_blank" class="btn-terminal border-cyan-500/70 hover:border-cyan-400">
+          <svg class="w-3.5 h-3.5 text-cyan-400">
+            <use href="#icon-arrow-right" />
+          </svg>
+          <span>PESAN SEKARANG</span>
+        </a>
+        <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank" class="btn-terminal border-zinc-700 hover:border-emerald-400 cursor-pointer flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-emerald-400">
+            <use href="#icon-lightning" />
+          </svg>
+          <span>KONSULTASI WHATSAPP</span>
+        </a>
+      </div>
+
+      <!-- Hero Stats Bar (Terminal style) -->
+      <div class="mt-16 w-full max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+        <div class="brutalist-box crosshair-tl p-4 border-zinc-800 bg-zinc-950/60">
+          <div class="text-[11px] font-mono text-zinc-500 uppercase">PROSES CEPAT</div>
+          <div class="text-xl font-bold font-silkscreen text-white mt-1">1 - 15 MIN</div>
+          <div class="text-[10px] font-mono text-emerald-400 mt-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+            <span>INSTANT DELIVERY</span>
+          </div>
+        </div>
+        <div class="brutalist-box crosshair-tr p-4 border-zinc-800 bg-zinc-950/60">
+          <div class="text-[11px] font-mono text-zinc-500 uppercase">GARANSI PENUH</div>
+          <div class="text-xl font-bold font-silkscreen text-white mt-1">100% AMAN</div>
+          <div class="text-[10px] font-mono text-cyan-400 mt-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 inline-block"></span>
+            <span>ANTI-LOGOUT / FIX BUG</span>
+          </div>
+        </div>
+        <div class="brutalist-box crosshair-bl p-4 border-zinc-800 bg-zinc-950/60">
+          <div class="text-[11px] font-mono text-zinc-500 uppercase">CUSTOM REQUEST</div>
+          <div class="text-xl font-bold font-silkscreen text-white mt-1">UNLIMITED</div>
+          <div class="text-[10px] font-mono text-purple-400 mt-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
+            <span>REQUEST & TAMBAH FITUR</span>
+          </div>
+        </div>
+        <div class="brutalist-box crosshair-br p-4 border-zinc-800 bg-zinc-950/60">
+          <div class="text-[11px] font-mono text-zinc-500 uppercase">METODE ORDER</div>
+          <div class="text-xl font-bold font-silkscreen text-white mt-1">WHATSAPP</div>
+          <div class="text-[10px] font-mono text-emerald-400 mt-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+            <span>ORDER LANGSUNG KE ADMIN</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BITMAP BANNER (OffBit Protocol) -->
+  <section class="py-12 bg-zinc-950 border-y border-zinc-800 relative">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+
+      <div class="flex items-center gap-6">
+        <div
+          class="w-16 h-16 border border-zinc-700 bg-black flex items-center justify-center text-2xl font-pixel text-zinc-300">
+          [LP]
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill-red font-silkscreen text-[10px]">BITMAP & DISPLAY</span>
+          </div>
+          <h3 class="text-2xl font-bold font-silkscreen text-white">LIRZANPEDIA DIGITAL SOLUTION™</h3>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+          <div class="text-xs font-mono text-zinc-400">MEASURED ACCORDING TO THE RAW STYLE</div>
+          <div class="text-[10px] font-mono text-zinc-600">WITHOUT COERCION AND WORRY // 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KATALOG LAYANAN (3 Produk Inti) -->
+  <section id="katalog-section" class="py-24 px-4 max-w-7xl mx-auto relative">
+
+    <!-- Section Title in Mixed Typography -->
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 text-xs font-mono text-red-400 uppercase tracking-widest mb-3">
+        <span>[ 01 // CORE CATALOG ]</span>
+      </div>
+      <h2 class="text-4xl sm:text-6xl font-bold tracking-tight">
+        <span class="font-serif-distort italic text-cyan-400">OUR</span>
+        <span class="font-silkscreen text-chrome">PREMIUM</span>
+        <span class="font-syne font-black text-zinc-100 text-5xl sm:text-7xl">OFFERINGS</span>
+      </h2>
+      <p class="text-zinc-400 font-mono text-sm max-w-xl mx-auto mt-3">
+        Pilih paket yang kamu butuhkan. Klik Pesan Sekarang untuk memilih opsi dan mengirim order langsung ke WhatsApp admin.
+      </p>
+    </div>
+
+    <!-- Product 1: ALIGHT MOTION PREMIUM -->
+    <div id="alight-motion-card"
+      class="mb-24 brutalist-box crosshair-tl crosshair-br p-6 sm:p-10 border-zinc-800 bg-zinc-950/90 relative">
+      <div
+        class="absolute -top-3 left-8 bg-y2k-red text-white text-[10px] font-silkscreen px-3 py-1 tracking-wider uppercase">
+        BESTSELLER EDITING APP
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left: Product Info -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="pill-status flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span>VERIFIED PRO ACCOUNT</span>
+            </span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold font-silkscreen text-white tracking-wide mb-4">
+            ALIGHT MOTION <span class="text-y2k-red">PREMIUM</span>
+          </h3>
+
+          <p class="text-zinc-300 font-grotesk text-sm sm:text-base leading-relaxed mb-6">
+            Solusi wajib bagi para kreator jedag-jedug, preset AM, dan editor video sinematik di
+            TikTok/Instagram/YouTube. Dapatkan akses penuh ke seluruh filter, efek Pro tanpa watermark, dan support
+            ekspor ultra HD 4K 60FPS.
+          </p>
+
+          <!-- Feature Bullets with SVG Checkmarks -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono text-zinc-300 mb-8">
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>NO WATERMARK (Ekspor Bersih)</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>4K 60FPS ULTRA RESOLUTION</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>XML & 5MB+ PRESET AM SUPPORT</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>SEMUA EFEK PRO & SHAKE UNLOCKED</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>SUPPORT ANDROID & IOS</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-zinc-900/60 border border-zinc-800/80">
+              <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0">
+                <use href="#icon-check" />
+              </svg>
+              <span>GARANSI ANTI-LOGOUT & GANTI BARU</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Pricing Cards Grid (Hanya 1 Tahun: Email Toko 5k vs Email Sendiri 7k) -->
+        <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div
+            class="p-5 border border-zinc-800 bg-black/60 hover:border-zinc-500 transition relative flex flex-col justify-between">
+            <span
+              class="absolute top-2 right-2 text-[9px] font-silkscreen text-emerald-400 bg-emerald-950/80 px-2 py-0.5 border border-emerald-800">1
+              TAHUN</span>
+            <div>
+              <div class="text-[11px] font-mono text-zinc-400 uppercase">PAKET // EMAIL TOKO</div>
+              <div class="text-xl font-bold font-silkscreen text-white mt-1">EMAIL DARI ADMIN</div>
+              <div class="text-3xl font-bold font-mono text-emerald-400 my-3">Rp 5.000</div>
+              <div class="text-[11px] font-mono text-zinc-300 leading-relaxed">
+                Masa aktif 1 Tahun penuh. Akun & password disiapkan admin toko.
+              </div>
+              <div class="mt-2 text-[10px] font-mono text-cyan-400">
+                ● Garansi: 7 Hari Ganti Baru
+              </div>
+            </div>
+            <a href="checkout.html?service=alight-motion&plan=am-admin-mail" target="_blank"
+              class="mt-5 w-full btn-terminal text-center text-xs py-2.5 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>PESAN SEKARANG</span>
+              <svg class="w-3 h-3 text-cyan-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+          <div
+            class="p-5 border border-red-900/60 bg-red-950/20 hover:border-red-500 transition relative flex flex-col justify-between">
+            <span
+              class="absolute top-2 right-2 text-[9px] font-silkscreen text-red-400 bg-red-950/80 px-2 py-0.5 border border-red-800">1
+              TAHUN</span>
+            <div>
+              <div class="text-[11px] font-mono text-red-300 uppercase">PAKET // EMAIL PRIBADI</div>
+              <div class="text-xl font-bold font-silkscreen text-white mt-1">EMAIL SENDIRI</div>
+              <div class="text-3xl font-bold font-mono text-red-400 my-3">Rp 7.000</div>
+              <div class="text-[11px] font-mono text-zinc-300 leading-relaxed">
+                Masa aktif 1 Tahun. Diaktifkan langsung di akun Google/email pribadi pembeli.
+              </div>
+              <div class="mt-2 text-[10px] font-mono text-emerald-400 font-bold">
+                ● Garansi: 1 Bulan (30 Hari) Ganti Baru
+              </div>
+            </div>
+            <a href="checkout.html?service=alight-motion&plan=am-own-mail" target="_blank"
+              class="mt-5 w-full btn-terminal-red text-center text-xs py-2.5 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>PESAN SEKARANG</span>
+              <svg class="w-3 h-3 text-white">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2: JASA DESAIN GRAFIS -->
+    <div id="logo-design-card"
+      class="mb-24 brutalist-box crosshair-tl crosshair-tr p-6 sm:p-10 border-zinc-800 bg-zinc-950/90 relative">
+      <div
+        class="absolute -top-3 left-8 bg-zinc-100 text-black text-[10px] font-silkscreen px-3 py-1 tracking-wider uppercase font-bold">
+        ORIGINAL ART & GRAPHIC LABS
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left Column: Description -->
+        <div class="lg:col-span-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="pill-cyan font-silkscreen text-[10px]">HD RESOLUTION</span>
+            <span class="text-xs font-mono text-zinc-500">CUSTOM ARTWORK // NO TEMPLATE</span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <span class="font-serif-distort italic text-3xl sm:text-4xl text-zinc-200">JASA DESAIN</span>
+            <span class="font-silkscreen text-cyan-400 block sm:inline">GRAFIS & BRAND</span>
+          </h3>
+
+          <p class="text-zinc-300 font-grotesk text-sm sm:text-base leading-relaxed mb-6">
+            Melayani pembuatan berbagai kebutuhan visual grafis berkarakter tinggi: <strong class="text-white">Desain Logo, Desain Poster Event / Musik, Banner Toko / Spanduk Siap Cetak, Social Media Feed Kit
+              (Instagram / TikTok), serta Mascot Clan Esports</strong>.
+          </p>
+
+          <div class="space-y-3 text-xs font-mono text-zinc-300 mb-8">
+            <div class="p-3 bg-zinc-900/70 border border-zinc-800 flex items-start gap-3">
+              <svg class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5 fill-current">
+                <use href="#icon-starburst" />
+              </svg>
+              <div>
+                <strong class="text-white block">Proses Cepat</strong>
+                <span class="text-zinc-400">Pengerjaan rapi, cepat, dan efisien sesuai deadline.</span>
+              </div>
+            </div>
+            <div class="p-3 bg-zinc-900/70 border border-zinc-800 flex items-start gap-3">
+              <svg class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5 fill-current">
+                <use href="#icon-starburst" />
+              </svg>
+              <div>
+                <strong class="text-white block">Export Siap Pakai</strong>
+                <span class="text-zinc-400">Master file PNG Transparan HD dan JPG resolusi tinggi siap pakai.</span>
+              </div>
+            </div>
+            <div class="p-3 bg-zinc-900/70 border border-zinc-800 flex items-start gap-3">
+              <svg class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5 fill-current">
+                <use href="#icon-starburst" />
+              </svg>
+              <div>
+                <strong class="text-white block">Revisi Fleksibel & Lisensi Penuh</strong>
+                <span class="text-zinc-400">Garansi revisi hingga sesuai konsep dan 100% hak milik komersial tanpa royalti.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Visual Style Preview & Tiers -->
+        <div class="lg:col-span-6 space-y-4">
+
+          <div class="p-5 border border-zinc-800 bg-black/70 hover:border-cyan-500/50 transition">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-silkscreen text-cyan-400 uppercase">TIER 1 // POPULAR</span>
+                <h4 class="text-xl font-bold font-silkscreen text-white mt-1">DESAIN LOGO</h4>
+                <p class="text-xs font-mono text-zinc-400 mt-1">Desain logo kustom berkualitas tinggi untuk kebutuhan bisnis atau personal.</p>
+              </div>
+              <div class="text-right">
+                <div class="text-2xl font-bold font-mono text-cyan-300">Rp 5.000 - Rp 25.000</div>
+                <div class="text-[10px] font-mono text-zinc-500">Estimasi 1-2 Hari</div>
+              </div>
+            </div>
+            <a href="checkout.html?service=logo-design&tier=logo-y2k" target="_blank"
+              class="mt-4 w-full btn-terminal text-center text-xs py-2 hover:border-cyan-400 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>PESAN DESAIN LOGO</span>
+              <svg class="w-3 h-3 text-cyan-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="p-5 border border-zinc-800 bg-black/70 hover:border-cyan-500/50 transition">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-silkscreen text-purple-400 uppercase">TIER 2 // EVENT & PROMO</span>
+                <h4 class="text-xl font-bold font-silkscreen text-white mt-1">POSTER & BANNER SPANDUK</h4>
+                <p class="text-xs font-mono text-zinc-400 mt-1">Poster event musik/konser, banner website/olshop
+                  Shopee/Tokped, spanduk siap cetak.</p>
+              </div>
+              <div class="text-right">
+                <div class="text-2xl font-bold font-mono text-purple-300">Rp 15.000 - Rp 50.000</div>
+                <div class="text-[10px] font-mono text-zinc-500">Estimasi 1-3 Hari</div>
+              </div>
+            </div>
+            <a href="checkout.html?service=logo-design&tier=logo-brutalist" target="_blank"
+              class="mt-4 w-full btn-terminal text-center text-xs py-2 hover:border-purple-400 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>PESAN POSTER & BANNER</span>
+              <svg class="w-3 h-3 text-purple-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="p-5 border border-zinc-800 bg-black/70 hover:border-cyan-500/50 transition">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-silkscreen text-emerald-400 uppercase">TIER 3 // COMPLETE SUITE</span>
+                <h4 class="text-xl font-bold font-silkscreen text-white mt-1">SOCIAL MEDIA KIT & MASCOT</h4>
+                <p class="text-xs font-mono text-zinc-400 mt-1">Feed IG carousel, banner header YouTube/Discord, avatar
+                  gaming & mascot clan esport.</p>
+              </div>
+              <div class="text-right">
+                <div class="text-2xl font-bold font-mono text-emerald-300">Rp 25.000 - Rp 100.000</div>
+                <div class="text-[10px] font-mono text-zinc-500">Estimasi 1-4 Hari</div>
+              </div>
+            </div>
+            <a href="checkout.html?service=logo-design&tier=logo-mascot" target="_blank"
+              class="mt-4 w-full btn-terminal text-center text-xs py-2 hover:border-emerald-400 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>PESAN SOCIAL MEDIA & MASCOT</span>
+              <svg class="w-3 h-3 text-emerald-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- Product 3: SCRIPT BOT WHATSAPP, TELEGRAM & DISCORD -->
+    <div id="bot-script-card"
+      class="mb-16 brutalist-box crosshair-bl crosshair-br p-6 sm:p-10 border-zinc-800 bg-zinc-950/90 relative">
+      <div
+        class="absolute -top-3 left-8 bg-emerald-500 text-black text-[10px] font-silkscreen px-3 py-1 tracking-wider uppercase font-bold">
+        FULL STACK AUTOMATION LAB
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Bot Capabilities -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="pill-status flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span>BISA REQUEST & TAMBAH FITUR</span>
+            </span>
+            <span class="text-xs font-mono text-zinc-500">NODE.JS // PYTHON ENGINE</span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <span class="font-silkscreen text-emerald-400">SCRIPT BOT CUSTOM</span>
+            <span class="font-serif-distort italic font-bold text-2xl sm:text-3xl text-zinc-300 block sm:inline">WA,
+              Tele & Discord</span>
+          </h3>
+
+          <p class="text-zinc-300 font-grotesk text-sm sm:text-base leading-relaxed mb-6">
+            Bikin bot otomasi canggih sesuai kebutuhan tokomu atau komunitasmu! Menggunakan source code bersih, modular,
+            dokumentasi instalasi lengkap, dan siap di-hosting di VPS, panel Pterodactyl, maupun Heroku/Railway.
+            Tersedia pula <strong class="text-white">Jasa Tambah Fitur dari Script Sendiri</strong> (ada biaya tambahan sesuai kerumitan fitur).
+          </p>
+
+          <!-- Platforms Supported -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <div class="p-3 border border-zinc-800 bg-black/80">
+              <div class="text-emerald-400 font-bold font-silkscreen text-sm">WHATSAPP BOT</div>
+              <div class="text-[11px] font-mono text-zinc-400 mt-1">Baileys v6 Multi-Device, QR Auth, Anti Banned
+                structure.</div>
+            </div>
+            <div class="p-3 border border-zinc-800 bg-black/80">
+              <div class="text-cyan-400 font-bold font-silkscreen text-sm">TELEGRAM BOT</div>
+              <div class="text-[11px] font-mono text-zinc-400 mt-1">Telegraf Framework, Inline queries, Keypad
+                interaktif, Webhook.</div>
+            </div>
+            <div class="p-3 border border-zinc-800 bg-black/80">
+              <div class="text-purple-400 font-bold font-silkscreen text-sm">DISCORD BOT</div>
+              <div class="text-[11px] font-mono text-zinc-400 mt-1">Discord.js v14, Slash commands, Auto-roles, Ticket
+                system.</div>
+            </div>
+          </div>
+
+          <!-- Feature Tag Cloud with SVG checkmarks -->
+          <div class="border border-zinc-800/80 p-4 bg-zinc-900/40 mb-6">
+            <div class="text-xs font-silkscreen text-zinc-400 mb-2 uppercase">FITUR POPULER YANG BISA DI-REQUEST:</div>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                AI Gemini & ChatGPT 4o
+              </span>
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                Auto QRIS & Mutasi
+              </span>
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                Downloader TT no WM / IG / YouTube HD
+              </span>
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                Auto Welcome & Card Generator
+              </span>
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                Broadcast Massal & Auto Reply
+              </span>
+              <span class="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-emerald-400">
+                  <use href="#icon-check" />
+                </svg>
+                Database MySQL / MongoDB / SQLite
+              </span>
+            </div>
+          </div>
+
+          <!-- Action Buttons linking directly to checkout -->
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="checkout.html?service=bot-script&platform=whatsapp" target="_blank"
+              class="btn-terminal-cyan text-xs flex items-center gap-1.5 cursor-pointer">
+              <span>PESAN BOT WA</span>
+              <svg class="w-3 h-3">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+            <a href="checkout.html?service=bot-script&platform=telegram" target="_blank"
+              class="btn-terminal text-xs flex items-center gap-1.5 cursor-pointer">
+              <span>PESAN BOT TELE</span>
+              <svg class="w-3 h-3 text-cyan-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+            <a href="checkout.html?service=bot-script&platform=discord" target="_blank"
+              class="btn-terminal text-xs flex items-center gap-1.5 cursor-pointer">
+              <span>PESAN BOT DISCORD</span>
+              <svg class="w-3 h-3 text-purple-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+            <a href="checkout.html?service=bot-script&mode=add-feature" target="_blank"
+              class="btn-terminal border-emerald-500/70 hover:border-emerald-400 text-xs flex items-center gap-1.5 cursor-pointer">
+              <span class="text-emerald-400">TAMBAH FITUR SCRIPT SENDIRI</span>
+              <svg class="w-3 h-3 text-emerald-400">
+                <use href="#icon-arrow-right" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Code Terminal Simulator -->
+        <div class="lg:col-span-5 flex flex-col justify-between">
+          <div class="border border-zinc-700 bg-black rounded overflow-hidden">
+            <!-- Terminal Title Bar -->
+            <div
+              class="bg-zinc-900 px-4 py-2 border-b border-zinc-800 flex items-center justify-between text-xs font-mono">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                <span class="text-zinc-400 ml-2">bot-engine.ts</span>
+              </div>
+              <span class="text-zinc-500">NODE 24.x</span>
+            </div>
+
+            <!-- Platform Switcher Buttons -->
+            <div class="flex border-b border-zinc-800 text-[11px] font-mono">
+              <button onclick="switchBotSnippet('whatsapp')" data-bot="whatsapp"
+                class="bot-tab-btn flex-1 py-1.5 px-2 bg-white text-black font-semibold text-center border-r border-zinc-800">
+                WHATSAPP
+              </button>
+              <button onclick="switchBotSnippet('telegram')" data-bot="telegram"
+                class="bot-tab-btn flex-1 py-1.5 px-2 bg-black text-white text-center border-r border-zinc-800 hover:text-cyan-400">
+                TELEGRAM
+              </button>
+              <button onclick="switchBotSnippet('discord')" data-bot="discord"
+                class="bot-tab-btn flex-1 py-1.5 px-2 bg-black text-white text-center hover:text-purple-400">
+                DISCORD
+              </button>
+            </div>
+
+            <!-- Code Display -->
+            <pre
+              class="p-4 text-[11px] font-mono text-zinc-300 overflow-x-auto leading-relaxed bg-zinc-950/90 h-[280px]"><code id="bot-code-display">// LIRZANPEDIA WHATSAPP BOT ENGINE (Baileys v6.7)
+import { makeWASocket, useMultiFileAuthState } from '@whiskeysockets/baileys';
+import { GoogleGenerativeAI } from '@google/genai';
+
+const bot = makeWASocket({ auth: state });
+bot.ev.on('messages.upsert', async ({ messages }) => {
+  const msg = messages[0];
+  if (!msg.message || msg.key.fromMe) return;
+  
+  // Custom Auto-AI & Media Downloader Handler
+  if (msg.text?.startsWith('!ai')) {
+    const reply = await aiModel.generateContent(msg.text.slice(4));
+    await bot.sendMessage(msg.key.remoteJid, { text: reply.text });
+  }
+});</code></pre>
+          </div>
+
+          <div
+            class="mt-4 p-3 bg-zinc-900/60 border border-zinc-800 text-xs font-mono text-zinc-400 flex items-center justify-between">
+            <span>Panduan Pasang VPS & Free Konsultasi Termasuk!</span>
+            <span class="text-emerald-400 font-bold">READY</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ALUR ORDER & CHECKOUT OVERVIEW SECTION -->
+  <section id="alur-order-section" class="py-20 px-4 bg-zinc-950 border-t border-zinc-800 relative">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 mb-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>SIMPLE ORDER PROTOCOL // 100% INSTAN & TRANSPARAN</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight uppercase leading-none">
+          <span class="font-grotesk font-black text-white">ALUR</span>
+          <span class="font-serif-distort italic text-cyan-400">PEMESANAN</span>
+          <span class="font-silkscreen text-2xl sm:text-4xl text-white">PRAKTIS</span>
+        </h2>
+        <p class="text-zinc-400 font-mono text-xs sm:text-sm mt-3 max-w-xl mx-auto">
+          Nikmati pengalaman belanja produk & jasa digital tanpa ribet. Pilih layanan dan kirim format order langsung ke WhatsApp admin untuk proses kilat.
+        </p>
+      </div>
+
+      <!-- 3-Step Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+        <div class="brutalist-box crosshair-tl p-6 border-zinc-800 bg-black/80 flex flex-col justify-between">
+          <div>
+            <div class="text-[11px] font-mono text-cyan-400 font-bold mb-1">STEP // 01</div>
+            <div class="text-xl font-bold font-silkscreen text-white mb-3">PILIH PRODUK</div>
+            <p class="text-zinc-400 font-mono text-xs leading-relaxed">
+              Tentukan paket yang kamu butuhkan, misal <strong class="text-white">Alight Motion Premium</strong>.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-zinc-500">
+            <svg class="w-3.5 h-3.5 text-cyan-400 inline-block mr-1">
+              <use href="#icon-check" />
+            </svg> Bebas Pilih Produk Sesuai Kebutuhan
+          </div>
+        </div>
+
+        <div class="brutalist-box crosshair-tr p-6 border-zinc-800 bg-black/80 flex flex-col justify-between">
+          <div>
+            <div class="text-[11px] font-mono text-emerald-400 font-bold mb-1">STEP // 02</div>
+            <div class="text-xl font-bold font-silkscreen text-white mb-3">BUKA CHECKOUT</div>
+            <p class="text-zinc-400 font-mono text-xs leading-relaxed">
+              Klik tombol <strong class="text-white">"Pesan Sekarang"</strong> untuk membuka halaman Checkout dan langsung mengirim format order ke WhatsApp admin.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-zinc-500">
+            <svg class="w-3.5 h-3.5 text-emerald-400 inline-block mr-1">
+              <use href="#icon-check" />
+            </svg> Order Cepat & Praktis via WhatsApp
+          </div>
+        </div>
+
+        <div class="brutalist-box crosshair-br p-6 border-zinc-800 bg-black/80 flex flex-col justify-between">
+          <div>
+            <div class="text-[11px] font-mono text-red-400 font-bold mb-1">STEP // 03</div>
+            <div class="text-xl font-bold font-silkscreen text-white mb-3">PROSES KILAT</div>
+            <p class="text-zinc-400 font-mono text-xs leading-relaxed">
+              Setelah konfirmasi di WhatsApp, pesananmu akan segera diproses (1-15 menit untuk akun AM) dengan garansi penuh.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-zinc-500">
+            <svg class="w-3.5 h-3.5 text-cyan-400 inline-block mr-1">
+              <use href="#icon-check" />
+            </svg> Full Garansi 1 Bulan Ganti Baru (AM Email Pribadi)
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Big CTA Banner to Open Checkout Page -->
+      <div
+        class="p-8 border border-zinc-800 bg-gradient-to-r from-zinc-950 via-black to-zinc-950 rounded-lg text-center flex flex-col sm:flex-row items-center justify-between gap-6 cyber-card-glow">
+        <div class="text-left">
+          <div class="text-[10px] font-silkscreen text-cyan-400 uppercase tracking-widest mb-1">READY TO LEVEL UP?</div>
+          <div class="text-2xl sm:text-3xl font-bold font-silkscreen text-white">SIAP ORDER SEKARANG?</div>
+          <div class="text-xs font-mono text-zinc-400 mt-1">Buka halaman Checkout Terminal untuk memilih paket dan langsung kirim order ke WhatsApp.</div>
+        </div>
+        <a href="checkout.html" target="_blank"
+          class="btn-terminal-red text-center py-3.5 px-8 text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 whitespace-nowrap shadow-xl">
+          <svg class="w-4 h-4 fill-current">
+            <use href="#icon-lightning" />
+          </svg>
+          <span>BUKA HALAMAN CHECKOUT</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq-section" class="py-20 px-4 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2">[ FAQ ]</div>
+      <h3 class="text-3xl font-bold font-silkscreen text-white">PERTANYAAN UMUM</h3>
+    </div>
+
+    <div class="space-y-4 font-mono text-xs">
+      <div class="border border-zinc-800 bg-zinc-950 p-4">
+        <strong class="text-white block text-sm mb-2">Q: Berapa masa aktif dan garansi akun Alight Motion
+          Premium?</strong>
+        <p class="text-zinc-400 leading-relaxed">
+          Akun Alight Motion Premium tersedia dengan masa aktif 1 Tahun penuh. Paket <strong class="text-white">Email
+            dari Admin (Rp 5.000)</strong> bergaransi 7 hari ganti baru, sedangkan paket <strong
+            class="text-white">Email Pribadi Sendiri (Rp 7.000)</strong> mendapatkan <strong
+            class="text-emerald-400">Garansi 1 Bulan (30 Hari)</strong> penuh!
+        </p>
+      </div>
+
+      <div class="border border-zinc-800 bg-zinc-950 p-4">
+        <strong class="text-white block text-sm mb-2">Q: Apakah bisa request tambah fitur untuk script bot yang sudah
+          saya miliki?</strong>
+        <p class="text-zinc-400 leading-relaxed">
+          Bisa banget! Selain pembuatan bot baru full script, kami juga melayani <strong class="text-white">Jasa Tambah
+            Fitur dari Script Sendiri</strong> dengan tarif mulai Rp 5.000 hingga Rp 50.000 per fitur tergantung tingkat
+          kesulitannya (integrasi AI, downloader, payment gateway, command baru, dll).
+        </p>
+      </div>
+
+      <div class="border border-zinc-800 bg-zinc-950 p-4">
+        <strong class="text-white block text-sm mb-2">Q: Apa saja cakupan jasa desain grafis dan format apa yang saya
+          terima?</strong>
+        <p class="text-zinc-400 leading-relaxed">
+          Kami melayani desain logo, poster event musik/konser, banner toko online/spanduk cetak, social
+          media kit, hingga mascot clan gaming. Kamu akan mendapatkan file master, serta PNG transparan resolusi ultra
+          HD.
+        </p>
+      </div>
+
+      <div class="border border-zinc-800 bg-zinc-950 p-4">
+        <strong class="text-white block text-sm mb-2">Q: Bagaimana alur pembayarannya?</strong>
+        <p class="text-zinc-400 leading-relaxed">
+          Kamu cukup klik tombol <strong class="text-white">"Pesan Sekarang"</strong> di navigasi atas atau pada kartu paket untuk membuka <strong class="text-cyan-400">Halaman Checkout</strong>. Di sana kamu bisa memilih opsi layanan dan menambahkan catatan khusus, lalu langsung diarahkan ke WhatsApp Admin dengan format order otomatis!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAK & WHATSAPP SUPPORT SECTION -->
+  <section id="kontak-section" class="py-16 px-4 bg-zinc-950/80 border-t border-zinc-800 text-center font-mono">
+    <div class="max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>LAYANAN KONSULTASI & BANTUAN AKTIF</span>
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-bold font-silkscreen text-white mb-3">BUTUH BANTUAN ATAU DISKUSI?</h3>
+      <p class="text-xs text-zinc-400 mb-6">
+        Admin dan Bot WhatsApp kami siap melayani pertanyaan seputar aktivasi akun Alight Motion, brief desain grafis,
+        maupun integrasi script bot custom.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs">
+        <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank"
+          class="btn-terminal-red py-3 px-6 flex items-center gap-2">
+          <svg class="w-4 h-4 fill-current">
+            <use href="#icon-lightning" />
+          </svg>
+          <span>CHAT WHATSAPP</span>
+        </a>
+        <a href="checkout.html" target="_blank" class="btn-terminal py-3 px-6 flex items-center gap-2">
+          <span>BUKA HALAMAN CHECKOUT</span>
+          <svg class="w-3.5 h-3.5 text-cyan-400">
+            <use href="#icon-arrow-right" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM FOOTER -->
+  <footer class="border-t border-zinc-800 bg-black pt-16 pb-12 px-4 relative overflow-hidden">
+
+    <!-- Giant Typography Background -->
+    <div class="max-w-7xl mx-auto text-center mb-12">
+      <div class="text-4xl sm:text-6xl md:text-8xl font-black font-syne text-zinc-900 select-none tracking-tight">
+        LIRZANPEDIA
+      </div>
+      <p class="text-zinc-500 font-mono text-xs uppercase tracking-widest mt-2">
+        LIRZANPEDIA DIGITAL SOLUTION // AUTOMATION
+      </p>
+    </div>
+
+    <div
+      class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border-t border-zinc-900 pt-8 text-xs font-mono text-zinc-500">
+      <div>
+        <span>[2026] LIRZANPEDIA DIGITAL SOLUTION. ALL RIGHTS RESERVED.</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#katalog-section" class="hover:text-white transition">KATALOG</a>
+        <a href="checkout.html" target="_blank" class="hover:text-white transition">HALAMAN CHECKOUT</a>
+        <a href="#faq-section" class="hover:text-white transition">FAQ</a>
+        <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank" class="hover:text-emerald-400 transition">WHATSAPP ADMIN</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+
+</html>
