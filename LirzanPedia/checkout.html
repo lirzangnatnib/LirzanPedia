@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout & Order Terminal // LirzanPedia Digital Solution</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'y2k-black': '#050505',
+            'y2k-charcoal': '#0d0d12',
+            'y2k-red': '#ff0033',
+            'y2k-cyan': '#00f0ff',
+            'y2k-green': '#00ff88',
+            'y2k-purple': '#b026ff'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-y2k-black text-white selection:bg-y2k-red selection:text-white relative min-h-screen flex flex-col justify-between">
+
+  <!-- CRT Scanlines Overlay -->
+  <div class="crt-scanlines"></div>
+
+  <!-- Reusable SVG Definition Assets -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <symbol id="icon-starburst" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 0 C12 6.627 6.627 12 0 12 C6.627 12 12 17.373 12 24 C12 17.373 17.373 12 24 12 C17.373 12 12 6.627 12 0 Z"/>
+    </symbol>
+    <symbol id="icon-lightning" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+    </symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </symbol>
+    <symbol id="icon-sound" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+    </symbol>
+    <!-- Smartphone / App Device (AM Premium) -->
+    <symbol id="icon-phone" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+    </symbol>
+
+    <!-- Design Palette (Jasa Desain) -->
+    <symbol id="icon-palette" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4 11 11 0 0120-4.5 9 9 0 01-9 8.5h-1a2 2 0 00-2 2v1a2 2 0 01-2 2h-2zM9 8h.01M15 8h.01M12 5h.01M8 12h.01"/>
+    </symbol>
+
+    <!-- Robot / Bot Engine (Script Bot) -->
+    <symbol id="icon-robot" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m-5 0h10a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2zm-3 7h2m12 0h2m-10 1v2m4-2v2m-6 5h8"/>
+    </symbol>
+
+    <!-- Receipt / Invoice -->
+    <symbol id="icon-receipt" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </symbol>
+
+    <!-- Copy Clipboard -->
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3"/>
+    </symbol>
+
+    <!-- Tip / Light Bulb -->
+    <symbol id="icon-bulb" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+    </symbol>
+  </svg>
+
+  <!-- TOPBAR NAVBAR (CHECKOUT VERSION) -->
+  <nav class="topbar-nav py-3.5 px-4 sm:px-8 border-b border-zinc-800/80">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Left: Logo & Back Link -->
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-red-500 p-[1px] flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <div class="w-full h-full bg-black rounded-full flex items-center justify-center">
+              <span class="font-silkscreen text-[11px] font-bold text-white group-hover:text-cyan-400 transition">LP</span>
+            </div>
+          </div>
+          <div class="flex items-baseline font-silkscreen text-base tracking-wider font-bold">
+            <span class="text-white">LIRZAN</span>
+            <span class="text-cyan-400">PEDIA</span>
+          </div>
+        </a>
+
+        <a href="index.html" class="text-xs font-mono text-zinc-400 hover:text-white transition flex items-center gap-1.5 border-l border-zinc-800 pl-4">
+          <svg class="w-3.5 h-3.5 transform rotate-180 text-zinc-400"><use href="#icon-arrow-right"/></svg>
+          <span class="hidden sm:inline">Kembali ke Beranda</span>
+          <span class="sm:hidden">Beranda</span>
+        </a>
+      </div>
+
+      <!-- Right: Live System Status & WhatsApp Direct Support -->
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-2 text-xs font-mono text-zinc-400 bg-zinc-900/60 px-3 py-1.5 rounded-full border border-zinc-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>ORDER VIA WHATSAPP // AKTIF</span>
+        </div>
+        <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank" class="text-xs font-mono px-3.5 py-1.5 rounded-full border border-zinc-800 hover:border-emerald-500 text-zinc-300 hover:text-emerald-400 transition flex items-center gap-1.5 bg-black">
+          <svg class="w-3.5 h-3.5 text-emerald-400 fill-current"><use href="#icon-lightning"/></svg>
+          <span>KONSULTASI WA ADMIN</span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- MAIN CHECKOUT & ORDER TERMINAL -->
+  <main class="py-12 sm:py-16 px-4 max-w-6xl mx-auto w-full flex-1">
+    
+    <!-- Title Header -->
+    <div class="mb-10 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 mb-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>[+] DYNAMIC CHECKOUT TERMINAL // LIRZANPEDIA GATEWAY ENGINE</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight uppercase leading-none">
+        <span class="font-grotesk font-black text-white">CHECKOUT</span>
+        <span class="font-serif-distort italic text-cyan-400">INSTANT</span>
+        <span class="font-silkscreen text-2xl sm:text-4xl text-white">ORDER</span>
+      </h1>
+      <p class="text-zinc-400 font-mono text-xs sm:text-sm mt-2 max-w-2xl">
+        Pilih paket layanan digital yang kamu butuhkan. Tulis catatan khusus bila ada, lalu klik tombol Order via WhatsApp untuk langsung mengirim pesan pemesanan ke admin.
+      </p>
+    </div>
+
+    <!-- The 2-Column POS Terminal Box -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT CARD: 01 // TERMINAL KASIR (INPUT TRANSAKSI) -->
+      <div id="terminal-interactive-deck" class="lg:col-span-7 brutalist-box crosshair-tl crosshair-bl p-6 border-zinc-800 bg-black/90 interactive-3d-tilt">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6 text-xs font-mono">
+          <div class="flex items-center gap-2 text-cyan-400 font-bold">
+            <span>01 // TERMINAL KASIR</span>
+          </div>
+          <span class="text-zinc-500 uppercase">INPUT TRANSAKSI</span>
+        </div>
+
+        <!-- Service Tabs -->
+        <div class="mb-5">
+          <label class="block text-xs font-mono text-zinc-400 mb-2 uppercase font-semibold">1. Pilih Layanan / Produk:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+            <button data-service="alight-motion" class="service-tab-btn py-2.5 px-3 border border-zinc-700 bg-white text-black font-semibold text-center transition cursor-pointer">
+              ALIGHT MOTION PREMIUM
+            </button>
+            <button data-service="logo-design" class="service-tab-btn py-2.5 px-3 border border-zinc-700 bg-black text-white text-center hover:border-zinc-500 transition cursor-pointer">
+              JASA DESAIN
+            </button>
+            <button data-service="bot-script" class="service-tab-btn py-2.5 px-3 border border-zinc-700 bg-black text-white text-center hover:border-zinc-500 transition cursor-pointer">
+              SCRIPT BOT & FITUR
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Options: Alight Motion (Hanya 1 Tahun: Email Toko 5k vs Email Sendiri 7k) -->
+        <div id="alight-motion-options" class="space-y-4 mb-6">
+          <label class="block text-xs font-mono text-zinc-400 uppercase font-semibold">2. Pilih Opsi Akun AM Premium 1 Tahun:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+            <label class="flex items-center gap-3 p-3.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-500 transition">
+              <input type="radio" name="am-plan" value="am-admin-mail" checked class="accent-red-500">
+              <div>
+                <strong class="text-white block">Email dari Admin (Toko)</strong>
+                <span class="text-emerald-400 font-bold text-sm">Rp 5.000</span>
+                <span class="text-[10px] text-zinc-400 block mt-0.5">1 Tahun • Garansi 7 Hari</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-500 transition">
+              <input type="radio" name="am-plan" value="am-own-mail" class="accent-red-500">
+              <div>
+                <strong class="text-white block">Email Pribadi Sendiri</strong>
+                <span class="text-red-400 font-bold text-sm">Rp 7.000</span>
+                <span class="text-[10px] text-emerald-400 font-bold block mt-0.5">1 Tahun • Garansi 1 Bulan (30 Hari)</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dynamic Options: Jasa Desain Grafis (Logo, Poster, Banner, Social Media) -->
+        <div id="logo-design-options" class="space-y-4 mb-6 hidden">
+          <label class="block text-xs font-mono text-zinc-400 uppercase font-semibold">2. Pilih Kategori Kebutuhan Desain Grafis:</label>
+          <div class="space-y-2 text-xs font-mono">
+            <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600 transition">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="logo-tier" value="logo-y2k" checked class="accent-cyan-400">
+                <div>
+                  <strong class="text-white block">Desain Logo</strong>
+                  <span class="text-zinc-500">Master file vector SVG & PNG transparan HD</span>
+                </div>
+              </div>
+              <span class="text-cyan-400 font-bold">Rp 15.000</span>
+            </label>
+            <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600 transition">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="logo-tier" value="logo-brutalist" class="accent-cyan-400">
+                <div>
+                  <strong class="text-white block">Desain Poster & Banner (Event / Olshop / Spanduk)</strong>
+                  <span class="text-zinc-500">Poster musik/event, banner olshop & spanduk siap cetak</span>
+                </div>
+              </div>
+              <span class="text-cyan-400 font-bold">Rp 25.000</span>
+            </label>
+            <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600 transition">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="logo-tier" value="logo-mascot" class="accent-cyan-400">
+                <div>
+                  <strong class="text-white block">Full Social Media Kit & Clan Mascot Logo</strong>
+                  <span class="text-zinc-500">Template feed IG + header YouTube/Discord + avatar mascot</span>
+                </div>
+              </div>
+              <span class="text-cyan-400 font-bold">Rp 40.000</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dynamic Options: Bot Script (Bikin Baru VS Tambah Fitur Script Sendiri) -->
+        <div id="bot-script-options" class="space-y-4 mb-6 hidden">
+          
+          <!-- Mode Selector: Bikin Bot Baru vs Tambah Fitur Sendiri -->
+          <div>
+            <label class="block text-xs font-mono text-zinc-400 mb-2 uppercase font-semibold">2. Pilih Kategori Layanan Script:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+              <label class="flex items-center gap-2.5 p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600 transition">
+                <input type="radio" name="bot-service-mode" value="new-bot" checked class="accent-emerald-400">
+                <div>
+                  <strong class="text-white block">Bikin Bot Baru (Full Script)</strong>
+                  <span class="text-zinc-500 text-[10px]">Mulai Rp 25.000 • Free Request Fitur</span>
+                </div>
+              </label>
+              <label class="flex items-center gap-2.5 p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600 transition">
+                <input type="radio" name="bot-service-mode" value="add-feature" class="accent-emerald-400">
+                <div>
+                  <strong class="text-white block">Tambah Fitur Script Sendiri</strong>
+                  <span class="text-emerald-400 font-bold text-[10px]">Range Rp 5.000 - Rp 50.000</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Container A: Bikin Bot Baru -->
+          <div id="bot-mode-new-container" class="space-y-4">
+            <label class="block text-xs font-mono text-zinc-400 uppercase">3. Pilih Platform Bot:</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono mb-4">
+              <label class="flex flex-col p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600">
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="bot-platform" value="whatsapp" checked class="accent-emerald-400">
+                  <span class="font-bold">WhatsApp</span>
+                </div>
+                <span class="text-emerald-400 text-[11px] mt-1">Rp 25.000</span>
+              </label>
+              <label class="flex flex-col p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600">
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="bot-platform" value="telegram" class="accent-emerald-400">
+                  <span class="font-bold">Telegram</span>
+                </div>
+                <span class="text-cyan-400 text-[11px] mt-1">Rp 25.000</span>
+              </label>
+              <label class="flex flex-col p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600">
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="bot-platform" value="discord" class="accent-emerald-400">
+                  <span class="font-bold">Discord</span>
+                </div>
+                <span class="text-purple-400 text-[11px] mt-1">Rp 30.000</span>
+              </label>
+              <label class="flex flex-col p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-600">
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="bot-platform" value="multi" class="accent-emerald-400">
+                  <span class="font-bold">Hybrid Multi</span>
+                </div>
+                <span class="text-red-400 text-[11px] mt-1">Rp 45.000</span>
+              </label>
+            </div>
+
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-mono text-zinc-400 uppercase">4. Request Fitur Kustom:</label>
+              <span class="text-[10px] font-mono text-yellow-400 font-bold">● BUKAN GRATIS (ADA HARGA LEBIH SESUAI FITUR)</span>
+            </div>
+            <div class="space-y-2 text-xs font-mono">
+              <label class="flex items-center justify-between p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-700">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" name="bot-addon" value="ai-bot" checked class="accent-emerald-400">
+                  <span>AI Integration (Gemini / ChatGPT 4o)</span>
+                </div>
+                <span class="text-yellow-400 font-mono text-[11px] font-semibold">+ Ada Harga Lebih</span>
+              </label>
+              <label class="flex items-center justify-between p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-700">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" name="bot-addon" value="downloader" checked class="accent-emerald-400">
+                  <span>Media Downloader (TikTok no WM, IG, YT)</span>
+                </div>
+                <span class="text-yellow-400 font-mono text-[11px] font-semibold">+ Ada Harga Lebih</span>
+              </label>
+              <label class="flex items-center justify-between p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-700">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" name="bot-addon" value="qris-payment" class="accent-emerald-400">
+                  <span>Auto QRIS & Mutation Payment Gateway</span>
+                </div>
+                <span class="text-yellow-400 font-mono text-[11px] font-semibold">+ Ada Harga Lebih</span>
+              </label>
+              <label class="flex items-center justify-between p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-700">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" name="bot-addon" value="group-manager" class="accent-emerald-400">
+                  <span>Group Auto-Moderator & Anti-Link</span>
+                </div>
+                <span class="text-yellow-400 font-mono text-[11px] font-semibold">+ Ada Harga Lebih</span>
+              </label>
+              <label class="flex items-center justify-between p-2.5 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-zinc-700">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" name="bot-addon" value="database" class="accent-emerald-400">
+                  <span>Custom Database (MySQL / MongoDB)</span>
+                </div>
+                <span class="text-yellow-400 font-mono text-[11px] font-semibold">+ Ada Harga Lebih</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Container B: Tambah Fitur Script Sendiri -->
+          <div id="bot-mode-add-container" class="space-y-3 hidden">
+            <label class="block text-xs font-mono text-zinc-400 uppercase">3. Pilih Tingkat Kesulitan Fitur (Bawa Script Sendiri):</label>
+            <div class="space-y-2 text-xs font-mono">
+              <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-emerald-500 transition">
+                <div class="flex items-center gap-2.5">
+                  <input type="radio" name="feature-difficulty" value="feat-light" checked class="accent-emerald-400">
+                  <div>
+                    <strong class="text-white block">Tingkat Ringan / Sederhana</strong>
+                    <span class="text-zinc-500">Auto reply teks, greeting welcome, link shortener, command info</span>
+                  </div>
+                </div>
+                <span class="text-emerald-400 font-bold">Rp 5.000</span>
+              </label>
+              <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-emerald-500 transition">
+                <div class="flex items-center gap-2.5">
+                  <input type="radio" name="feature-difficulty" value="feat-medium" class="accent-emerald-400">
+                  <div>
+                    <strong class="text-white block">Tingkat Menengah / Standard</strong>
+                    <span class="text-zinc-500">Downloader TT no WM/IG/YT, sticker maker, button menu, broadcast</span>
+                  </div>
+                </div>
+                <span class="text-cyan-400 font-bold">Rp 20.000</span>
+              </label>
+              <label class="flex items-center justify-between p-3 border border-zinc-800 bg-zinc-950 cursor-pointer hover:border-emerald-500 transition">
+                <div class="flex items-center gap-2.5">
+                  <input type="radio" name="feature-difficulty" value="feat-heavy" class="accent-emerald-400">
+                  <div>
+                    <strong class="text-white block">Tingkat Rumit / Advanced</strong>
+                    <span class="text-zinc-500">Integrasi AI Gemini/ChatGPT, Payment QRIS otomatis, database MySQL</span>
+                  </div>
+                </div>
+                <span class="text-red-400 font-bold">Rp 50.000</span>
+              </label>
+            </div>
+            <div class="p-2.5 bg-zinc-900/60 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+              <svg class="w-3.5 h-3.5 text-yellow-400 inline-block mr-1"><use href="#icon-bulb"/></svg><span class="text-zinc-300">Tuliskan nama fitur & detail script yang kamu miliki di kolom Catatan di bawah.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Customer Note Input -->
+        <div class="mb-6">
+          <label class="block text-xs font-mono text-zinc-400 mb-2 uppercase font-semibold">
+            Catatan Order / Email Pembeli / Request Fitur (Opsional):
+          </label>
+          <textarea id="terminal-customer-note" rows="2" class="terminal-input text-xs" placeholder="Contoh: Email pribadi saya: user@gmail.com / Request bot WhatsApp auto order"></textarea>
+        </div>
+
+        <!-- Quick Controls -->
+        <div class="flex items-center justify-between text-xs font-mono text-zinc-400 pt-2 border-t border-zinc-800">
+          <button onclick="promptChangeAdminNumber()" class="hover:text-cyan-400 transition flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5"><use href="#icon-gear"/></svg>
+            <span>UBAH NO. WA ADMIN</span>
+          </button>
+          <button onclick="toggleSound()" id="sound-toggle-btn" class="hover:text-cyan-400 transition flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5"><use href="#icon-sound"/></svg>
+            <span>AUDIO: ON [SND]</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT CARD: LIRZANPEDIA CHECKOUT (Order 100% via WhatsApp) -->
+      <div id="terminal-checkout-deck" class="lg:col-span-5 brutalist-box crosshair-tr crosshair-br p-6 border-zinc-800 bg-black/90 interactive-3d-tilt relative overflow-hidden cyber-card-glow">
+        
+        <!-- Animated Laser Scanline Beam -->
+        <div id="checkout-laser-beam" class="laser-scanner-line"></div>
+
+        <!-- Header Bar -->
+        <div class="border-b border-zinc-800 pb-3 mb-5 flex items-center justify-between text-xs font-mono relative z-30">
+          <div class="flex items-center gap-2 text-cyan-400 font-bold">
+            <svg class="w-4 h-4 fill-current"><use href="#icon-receipt"/></svg>
+            <span>02 // RINGKASAN ORDER</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="copyCheckoutSummary()" class="px-2.5 py-1 text-[11px] border border-zinc-800 bg-zinc-950 text-zinc-400 rounded hover:border-emerald-400 hover:text-emerald-400 transition cursor-pointer flex items-center gap-1" title="Salin Teks Order">
+              <svg class="w-3.5 h-3.5"><use href="#icon-copy"/></svg>
+              <span>SALIN</span>
+            </button>
+            <div class="pill-status flex items-center gap-1.5 select-none">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+              <span>READY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDER SUMMARY & DIRECT WHATSAPP ACTION -->
+        <div id="checkout-view-invoice" class="space-y-4">
+          <!-- Merchant Tag -->
+          <div class="text-center mb-4">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">MERCHANT NAME</div>
+            <div class="text-2xl font-bold font-silkscreen text-white tracking-wider mt-1">LIRZANPEDIA</div>
+            <div class="text-[11px] font-mono text-zinc-400 mt-0.5">DIGITAL SOLUTION LABS</div>
+          </div>
+
+          <!-- Item Selected Overview -->
+          <div class="p-3 bg-zinc-950 border border-zinc-800 mb-4 font-mono text-xs space-y-2">
+            <div class="flex justify-between text-zinc-400">
+              <span>Layanan:</span>
+              <span id="terminal-item-name" class="text-white text-right max-w-[210px] truncate font-semibold">Alight Motion 1 Tahun (Email Toko)</span>
+            </div>
+            <div class="flex justify-between text-zinc-400">
+              <span>Harga Dasar:</span>
+              <span id="terminal-subtotal-val" class="text-zinc-200">Rp 5.000</span>
+            </div>
+            <div class="flex justify-between text-zinc-400 border-t border-zinc-800/80 pt-1.5">
+              <span>Metode Pemesanan:</span>
+              <span class="text-emerald-400 font-bold">100% VIA WHATSAPP</span>
+            </div>
+          </div>
+
+          <!-- Format Pesan Preview Card -->
+          <div class="p-3.5 border border-zinc-800 bg-zinc-950/80 text-left mb-4">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>PREVIEW PESAN WHATSAPP:</span>
+              <span class="text-emerald-400 text-[10px]">OTOMATIS</span>
+            </div>
+            <p id="whatsapp-preview-snippet" class="text-xs font-mono text-cyan-300 italic bg-black/60 p-2.5 rounded border border-zinc-800/80 leading-relaxed">
+              Halo min, saya mau order alight motion premium email dari admin
+            </p>
+          </div>
+
+          <!-- Main CTA: ORDER VIA WHATSAPP -->
+          <div class="space-y-2.5 pt-2">
+            <button onclick="sendWhatsAppOrder()" class="w-full btn-terminal-red text-center py-3.5 text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-red-500/30">
+              <svg class="w-4 h-4 fill-current"><use href="#icon-lightning"/></svg>
+              <span>ORDER VIA WHATSAPP</span>
+            </button>
+
+            <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank" class="w-full btn-terminal text-center py-2.5 text-xs tracking-wider flex items-center justify-center gap-2 hover:border-emerald-400 hover:text-emerald-400 cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-emerald-400 fill-current"><use href="#icon-starburst"/></svg>
+              <span>KONSULTASI DULU VIA WHATSAPP</span>
+            </a>
+          </div>
+
+          <div class="text-center text-[10px] font-mono text-zinc-500 pt-2 border-t border-zinc-900">
+            ADMIN WHATSAPP RESMI: <span class="text-zinc-300">0815-7269-3453</span> • FAST RESPONSE
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Info Box: Ketentuan Transaksi & Garansi -->
+    <div class="mt-12 p-6 brutalist-box border-zinc-800 bg-zinc-950/70 font-mono text-xs">
+      <div class="flex items-center gap-2 text-cyan-400 font-bold mb-3 uppercase tracking-wider">
+        <svg class="w-4 h-4 text-cyan-400 fill-current"><use href="#icon-starburst"/></svg>
+        <span>INFORMASI PENGIRIMAN & GARANSI PESANAN</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-zinc-400">
+        <div class="border border-zinc-800/80 p-3 bg-black/60">
+          <strong class="text-white block mb-1"><svg class="w-3.5 h-3.5 text-red-400 inline-block mr-1.5"><use href="#icon-phone"/></svg>Alight Motion Premium</strong>
+          <span>Akun dikirim via WhatsApp dalam 1-15 menit setelah konfirmasi. Garansi 1 Bulan untuk email sendiri & 7 hari untuk email admin toko.</span>
+        </div>
+        <div class="border border-zinc-800/80 p-3 bg-black/60">
+          <strong class="text-white block mb-1"><svg class="w-3.5 h-3.5 text-purple-400 inline-block mr-1.5"><use href="#icon-palette"/></svg>Jasa Desain Grafis</strong>
+          <span>Diskusi konsep & brief langsung di WhatsApp admin. File master vector SVG, AI, dan PNG HD dikirim setelah preview disetujui.</span>
+        </div>
+        <div class="border border-zinc-800/80 p-3 bg-black/60">
+          <strong class="text-white block mb-1"><svg class="w-3.5 h-3.5 text-emerald-400 inline-block mr-1.5"><use href="#icon-robot"/></svg>Script Bot & Tambah Fitur</strong>
+          <span>Source code dikirim via ZIP / GitHub repository disertai tutorial install di panel hosting atau VPS sampai bot aktif online.</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-800 bg-black py-8 px-4 text-center font-mono text-xs text-zinc-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>[2026] LIRZANPEDIA DIGITAL SOLUTION. SECURE CHECKOUT GATEWAY.</div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white transition">BERANDA</a>
+        <a href="index.html#faq-section" class="hover:text-white transition">FAQ</a>
+        <a href="https://wa.me/6281572693453?text=Halo%20min%20saya%20mau%20konsultasi" target="_blank" class="hover:text-emerald-400 transition">CHAT WHATSAPP</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
